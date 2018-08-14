@@ -1,0 +1,17 @@
+{
+  "name": "demo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server index.js"
+  },
+  "dependencies": {
+    "faker": "^4.1.0",
+    "lodash": "^4.17.10",
+    "json-server": "^0.12.1"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
