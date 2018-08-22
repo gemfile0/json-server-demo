@@ -125,17 +125,17 @@ function initSurprisingBonus(id) {
 
     db.get('visitBonuses')
         .push({  
-        id: id,
-        visitCount: 6,
-        visitPresents: [
-            { day: 2, isOpened: false },
-            { day: 5, isOpened: false },
-            { day: 7, isOpened: false },
-            { day: 10, isOpened: false },
-            { day: 15, isOpened: false },
-        ],
-        surprisingBonusId: id,
-        bonusTableId: 1
+            id: id,
+            visitCount: 6,
+            visitPresents: [
+                { day: 2, isOpened: false },
+                { day: 5, isOpened: false },
+                { day: 7, isOpened: false },
+                { day: 10, isOpened: false },
+                { day: 15, isOpened: false },
+            ],
+            surprisingBonusId: id,
+            bonusTableId: 1
         })
         .write()
     
