@@ -1,3 +1,7 @@
+const fs = require('fs')
+const content = fs.readFileSync('template.db.json')
+fs.writeFileSync('db.json', content)
+
 const jsonServer = require('json-server')
 
 const server = jsonServer.create()
@@ -5,8 +9,8 @@ const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
 const db = router.db;
-const faker = require("faker");
-var _ = require("lodash");
+const faker = require("faker")
+const _ = require("lodash")
 
 server.use(middlewares)
 
@@ -45,8 +49,9 @@ router.render = (req, res) => {
             .value()
         
         if (surprisingBonus == null) {
-            initUser(id);
+            initUser(id)
             initSurprisingBonus(id)
+            initInbox(id)
         }
 
         res.jsonp(data)
@@ -118,13 +123,105 @@ function initUser(id) {
         .write()
 }
 
+function initInbox(id) {
+    db.get('inboxes')
+        .push({
+            id: id,
+            userId: id,
+            mails: [
+                {
+                id: 1,
+                iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
+                timestamp: 1534550400,
+                title: 'FB CONNECT BONUS',
+                desc: 'Welcome to MY AQUA CASINO!',
+                bonusValue: 100000,
+                isOpened: false
+                },
+                {
+                id: 2,
+                iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
+                timestamp: 1534647600,
+                title: 'APOLOZIZING COMPENSATION',
+                desc: 'Please forgive our mistake!',
+                bonusValue: 30000,
+                isOpened: false
+                },
+                {
+                id: 3,
+                iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
+                timestamp: 1534744800,
+                title: 'CHEER UP BONUS',
+                desc: 'We served for your more fun.',
+                bonusValue: 50000,
+                isOpened: false
+                },
+                {
+                id: 4,
+                iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
+                timestamp: 1534842000,
+                title: `WELCOME ${faker.name.findName()}`,
+                desc: 'We miss you and wish your more fun.',
+                bonusValue: 50000,
+                isOpened: false
+                },
+                {
+                id: 5,
+                iconUrl: faker.internet.avatar(),
+                timestamp: 1534939200,
+                title: 'REWARD FOR INVITAION',
+                desc: `${faker.name.findName()} accepted your invitation!`,
+                bonusValue: 50000,
+                isOpened: false
+                },
+                {
+                id: 6,
+                iconUrl: faker.internet.avatar(),
+                timestamp: 1535036400,
+                title: 'FRIENDS’ GIFT',
+                desc: `${faker.name.findName()} gift to you.`,
+                bonusValue: 10000,
+                isOpened: false
+                },
+                {
+                id: 7,
+                iconUrl: faker.internet.avatar(),
+                timestamp: 1535133600,
+                title: "SEND GIFT",
+                desc: `${faker.name.findName()} will like your gift.`,
+                bonusValue: 10000,
+                isOpened: false
+                },
+                {
+                id: 8,
+                iconUrl: faker.internet.avatar(),
+                timestamp: 1535230800,
+                title: "SEND GIFT",
+                desc: `${faker.name.findName()} will like your gift.`,
+                bonusValue: 20000,
+                isOpened: false
+                },
+                {
+                id: 9,
+                iconUrl: faker.internet.avatar(),
+                timestamp: 1535328000,
+                title: "SEND GIFT",
+                desc: `${faker.name.findName()} will like your gift.`,
+                bonusValue: 100000,
+                isOpened: false
+                }
+            ]
+        })
+        .write()
+}
+
 function initSurprisingBonus(id) {
     db.get('surprisingBonuses')
         .push({ id: id, userId: id })
         .write()
 
     db.get('visitBonuses')
-        .push({  
+        .push({
             id: id,
             visitCount: 6,
             visitPresents: [

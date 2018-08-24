@@ -12,7 +12,8 @@
     "json-server": "^0.12.1"
   },
   "now": {
-    "alias": "json-server-demo"
+    "alias": "json-server-demo",
+    "public": true
   },
   "devDependencies": {},
   "author": "",
