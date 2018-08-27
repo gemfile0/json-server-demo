@@ -1,6 +1,6 @@
-const fs = require('fs')
-const content = fs.readFileSync('template.db.json')
-fs.writeFileSync('db.json', content)
+// const fs = require('fs')
+// const content = fs.readFileSync('template.db.json')
+// fs.writeFileSync('db.json', content)
 
 const jsonServer = require('json-server')
 
@@ -41,6 +41,8 @@ server.post('/users', (req, res, next) => {
 router.render = (req, res) => {
     const { data } = res.locals
     
+    console.log("[router.render] req.method : " + req.method + ", req.path : " + req.path);
+
     if (req.method == 'POST') {
         const { id } = data
         const surprisingBonus = db
@@ -49,11 +51,13 @@ router.render = (req, res) => {
             .value()
         
         if (surprisingBonus == null) {
+            initInventory(id)
             initUser(id)
             initSurprisingBonus(id)
             initInbox(id)
         }
-
+        
+        data.inventory = db.get('inventories').find({ id: id }).value()
         res.jsonp(data)
         
     } else if (req.method == 'GET' && req.path == '/users') {
@@ -62,7 +66,8 @@ router.render = (req, res) => {
             .get('users')
             .find({ id: id })
             .value()
-
+        
+        user.inventory = db.get('inventories').find({ id: id }).value()
         res.jsonp(user)
         
     } else {
@@ -83,6 +88,15 @@ function initUser(id) {
             level: 1,
             xp: 0,
             coin: 10000000,
+            inventoryId: id
+        })
+        .write()
+}
+
+function initInventory(id) {
+    db.get('inventories')
+        .push({
+            id: id,
             aquaIndex: 0,
             aquas: [
                 {
@@ -91,27 +105,44 @@ function initUser(id) {
                     fishCounts: [
                         {
                             id: 100,
-                            count: 5
+                            count: 5,
+                            added: 0
                         },
                         {
                             id: 111,
-                            count: 3
+                            count: 3,
+                            added: 0
                         },
                         {
                             id: 124,
-                            count: 1
+                            count: 1,
+                            added: 0
                         },
                         {
                             id: 120,
-                            count: 1
+                            count: 1,
+                            added: 0
                         },
                         {
                             id: 132,
-                            count: 1
+                            count: 1,
+                            added: 0
                         },
                         {
                             id: 134,
-                            count: 1
+                            count: 1,
+                            added: 0
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    level: 1,
+                    fishCounts: [
+                        {
+                            id: 5,
+                            count: 1,
+                            added: 0
                         }
                     ]
                 }
@@ -293,7 +324,7 @@ function initSurprisingBonus(id) {
                             fishCounts: [
                                 {
                                     id: Math.floor(Math.random() * 134) + 1,
-                                    count: 10
+                                    count: 10,
                                 }
                             ]
                         }
