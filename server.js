@@ -58,6 +58,7 @@ router.render = (req, res) => {
         }
         
         data.inventory = db.get('inventories').find({ id: id }).value()
+        data.lobbyInventory = db.get('lobbyInventories').find({ id: id }).value()
         res.jsonp(data)
         
     } else if (req.method == 'GET' && req.path == '/users') {
@@ -68,6 +69,7 @@ router.render = (req, res) => {
             .value()
         
         user.inventory = db.get('inventories').find({ id: id }).value()
+        data.lobbyInventory = db.get('lobbyInventories').find({ id: id }).value()
         res.jsonp(user)
         
     } else {
@@ -94,59 +96,112 @@ function initUser(id) {
 }
 
 function initInventory(id) {
+    if (db.get('shopTables').size().value() == 0) {
+        db.get('shopTables')
+            .push(
+            {
+                id: 1, // lobby shop
+                values: [
+                    { id: 1, isNew: true, soldCount: 1, state: "Arizona", releaseTime: 1533195389, memorialTime: -1826582400 },
+                    { id: 2, isNew: false, soldCount: 2, state: "", releaseTime: 1533195388, memorialTime: 0 },
+                    { id: 3, isNew: false, soldCount: 3, state: "New Jersey", releaseTime: 1533195387, memorialTime: -5744563200},
+                    { id: 4, isNew: false, soldCount: 4, state: "", releaseTime: 1533195386, memorialTime: 0 },
+                    { id: 5, isNew: false, soldCount: 5, state: "Ohio", releaseTime: 1533195385, memorialTime: -5264956800 },
+                    { id: 6, isNew: false, soldCount: 1, state: "", releaseTime: 1533195384, memorialTime: 0 },
+                    { id: 7, isNew: false, soldCount: 1, state: "", releaseTime: 1533195383, memorialTime: 0 },
+                    { id: 8, isNew: false, soldCount: 1, state: "", releaseTime: 1533195382, memorialTime: 0 },
+                    { id: 9, isNew: false, soldCount: 1, state: "", releaseTime: 1533195381, memorialTime: 0 },
+                    { id: 10, isNew: false, soldCount: 1, state: "", releaseTime: 1533195380, memorialTime: 0 }
+                ]
+            },
+            {
+                id: 2, 
+                
+            })
+            .write();
+    }
+
+    db.get('lobbyInventories')
+        .push({
+            id: id,
+            lobbyIndex: 0,
+            lobbies: [
+            {
+                id: 6,
+                purchaseTime: 1533285485
+            },
+            {
+                id: 7,
+                purchaseTime: 1533285484
+            },
+            {
+                id: 8,
+                purchaseTime: 1533285483
+            },
+            {
+                id: 9,
+                purchaseTime: 1533285482
+            },
+            {
+                id: 10,
+                purchaseTime: 1533285481
+            }],
+            userId: id,
+            shopTableId: 1
+        })
+        .write()
+    
     db.get('inventories')
         .push({
             id: id,
             aquaIndex: 0,
             aquas: [
+            {
+                id: 1,
+                level: 1,
+                fishCounts: [
                 {
-                    id: 1,
-                    level: 1,
-                    fishCounts: [
-                        {
-                            id: 100,
-                            count: 5,
-                            added: 0
-                        },
-                        {
-                            id: 111,
-                            count: 3,
-                            added: 0
-                        },
-                        {
-                            id: 124,
-                            count: 1,
-                            added: 0
-                        },
-                        {
-                            id: 120,
-                            count: 1,
-                            added: 0
-                        },
-                        {
-                            id: 132,
-                            count: 1,
-                            added: 0
-                        },
-                        {
-                            id: 134,
-                            count: 1,
-                            added: 0
-                        }
-                    ]
+                    id: 100,
+                    count: 5,
+                    added: 0
                 },
                 {
-                    id: 2,
-                    level: 1,
-                    fishCounts: [
-                        {
-                            id: 5,
-                            count: 1,
-                            added: 0
-                        }
-                    ]
-                }
-            ],
+                    id: 111,
+                    count: 3,
+                    added: 0
+                },
+                {
+                    id: 124,
+                    count: 1,
+                    added: 0
+                },
+                {
+                    id: 120,
+                    count: 1,
+                    added: 0
+                },
+                {
+                    id: 132,
+                    count: 1,
+                    added: 0
+                },
+                {
+                    id: 134,
+                    count: 1,
+                    added: 0
+                }]
+            },
+            {
+                id: 2,
+                level: 1,
+                fishCounts: [
+                    {
+                        id: 5,
+                        count: 1,
+                        added: 0
+                    }
+                ]
+            }],
             fishCounts: [
 
             ]
@@ -160,7 +215,7 @@ function initInbox(id) {
             id: id,
             userId: id,
             mails: [
-                {
+            {
                 id: 1,
                 iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
                 timestamp: 1534550400,
@@ -168,8 +223,8 @@ function initInbox(id) {
                 desc: 'Welcome to MY AQUA CASINO!',
                 bonusValue: 100000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 2,
                 iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
                 timestamp: 1534647600,
@@ -177,8 +232,8 @@ function initInbox(id) {
                 desc: 'Please forgive our mistake!',
                 bonusValue: 30000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 3,
                 iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
                 timestamp: 1534744800,
@@ -186,8 +241,8 @@ function initInbox(id) {
                 desc: 'We served for your more fun.',
                 bonusValue: 50000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 4,
                 iconUrl: 'http://icons.iconarchive.com/icons/graphicloads/100-flat-2/128/email-icon.png',
                 timestamp: 1534842000,
@@ -195,8 +250,8 @@ function initInbox(id) {
                 desc: 'We miss you and wish your more fun.',
                 bonusValue: 50000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 5,
                 iconUrl: faker.internet.avatar(),
                 timestamp: 1534939200,
@@ -204,8 +259,8 @@ function initInbox(id) {
                 desc: `${faker.name.findName()} accepted your invitation!`,
                 bonusValue: 50000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 6,
                 iconUrl: faker.internet.avatar(),
                 timestamp: 1535036400,
@@ -213,8 +268,8 @@ function initInbox(id) {
                 desc: `${faker.name.findName()} gift to you.`,
                 bonusValue: 10000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 7,
                 iconUrl: faker.internet.avatar(),
                 timestamp: 1535133600,
@@ -222,8 +277,8 @@ function initInbox(id) {
                 desc: `${faker.name.findName()} will like your gift.`,
                 bonusValue: 10000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 8,
                 iconUrl: faker.internet.avatar(),
                 timestamp: 1535230800,
@@ -231,8 +286,8 @@ function initInbox(id) {
                 desc: `${faker.name.findName()} will like your gift.`,
                 bonusValue: 20000,
                 isOpened: false
-                },
-                {
+            },
+            {
                 id: 9,
                 iconUrl: faker.internet.avatar(),
                 timestamp: 1535328000,
@@ -240,8 +295,7 @@ function initInbox(id) {
                 desc: `${faker.name.findName()} will like your gift.`,
                 bonusValue: 100000,
                 isOpened: false
-                }
-            ]
+            }]
         })
         .write()
 }
@@ -271,38 +325,38 @@ function initSurprisingBonus(id) {
         db.get('bonusTables')
             .push(
             {
-            id: 1, // visit bonus
-            values: [
-                { id: 2, type: 0, value: 20000 },
-                { id: 5, type: 0, value: 50000 },
-                { id: 7, type: 0, value: 70000 },
-                { id: 10, type: 0, value: 100000 },
-                { id: 15, type : 0, value: 150000 }
-            ]
+                id: 1, // visit bonus
+                values: [
+                    { id: 2, type: 0, value: 20000 },
+                    { id: 5, type: 0, value: 50000 },
+                    { id: 7, type: 0, value: 70000 },
+                    { id: 10, type: 0, value: 100000 },
+                    { id: 15, type : 0, value: 150000 }
+                ]
             },
             {
-            id: 2, // instant bonus
-            values: [
-                { id: 1, type: 0, value: 100000 },
-                { id: 2, type: 0, value: 150000 },
-                { id: 3, type: 0, value: 200000 },
-                { id: 4, type: 0, value: 250000 },
-                { id: 5, type: 0, value: 300000 },
-                { id: 7, type: 0, value: 400000 },
-                { id: 8, type: 0, value: 500000 },
-                { id: 9, type: 0, value: 700000 },
-                { id: 10, type: 0, value: 1000000 },
-                { id: 11, type: 0, value: 2000000 },
-            ]
+                id: 2, // instant bonus
+                values: [
+                    { id: 1, type: 0, value: 100000 },
+                    { id: 2, type: 0, value: 150000 },
+                    { id: 3, type: 0, value: 200000 },
+                    { id: 4, type: 0, value: 250000 },
+                    { id: 5, type: 0, value: 300000 },
+                    { id: 7, type: 0, value: 400000 },
+                    { id: 8, type: 0, value: 500000 },
+                    { id: 9, type: 0, value: 700000 },
+                    { id: 10, type: 0, value: 1000000 },
+                    { id: 11, type: 0, value: 2000000 },
+                ]
             })
             .write()
     }
 
     db.get('myaquaBonuses')
         .push({
-        id: id,
-        timestamp: Math.floor(Date.now() / 1000),
-        surprisingBonusId: id
+            id: id,
+            timestamp: Math.floor(Date.now() / 1000),
+            surprisingBonusId: id
         })
         .write()
 
@@ -339,10 +393,10 @@ function initSurprisingBonus(id) {
 
     db.get('instantBonuses')
         .push({
-        id: id,
-        timestamp: Math.floor(Date.now() / 1000) + 15,
-        surprisingBonusId: id,
-        bonusTableId: 2
+            id: id,
+            timestamp: Math.floor(Date.now() / 1000) + 15,
+            surprisingBonusId: id,
+            bonusTableId: 2
         })
         .write()
 }
