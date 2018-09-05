@@ -86,10 +86,11 @@ function initUser(id) {
     db.get('users')
         .find({ id: id })
         .assign({ 
-            created: Date.now(),
+            created: Math.floor(Date.now() / 1000),
             level: 1,
             xp: 0,
             coin: 10000000,
+            gem: 1000,
             inventoryId: id
         })
         .write()
@@ -124,27 +125,11 @@ function initInventory(id) {
     db.get('lobbyInventories')
         .push({
             id: id,
-            lobbyIndex: 0,
+            lobbyIndex: 6,
             lobbies: [
             {
                 id: 6,
                 purchaseTime: 1533285485
-            },
-            {
-                id: 7,
-                purchaseTime: 1533285484
-            },
-            {
-                id: 8,
-                purchaseTime: 1533285483
-            },
-            {
-                id: 9,
-                purchaseTime: 1533285482
-            },
-            {
-                id: 10,
-                purchaseTime: 1533285481
             }],
             userId: id,
             shopTableId: 1
@@ -159,7 +144,7 @@ function initInventory(id) {
             {
                 id: 1,
                 level: 1,
-                fishCounts: [
+                fishes: [
                 {
                     id: 100,
                     count: 5,
@@ -194,7 +179,7 @@ function initInventory(id) {
             {
                 id: 2,
                 level: 1,
-                fishCounts: [
+                fishes: [
                     {
                         id: 5,
                         count: 1,
@@ -202,7 +187,7 @@ function initInventory(id) {
                     }
                 ]
             }],
-            fishCounts: [
+            fishes: [
 
             ]
         })
@@ -375,7 +360,7 @@ function initSurprisingBonus(id) {
                         {
                             id: 1,
                             level: Math.floor(Math.random() * 4) + 1,
-                            fishCounts: [
+                            fishes: [
                                 {
                                     id: Math.floor(Math.random() * 134) + 1,
                                     count: 10,

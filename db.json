@@ -1,11 +1,15 @@
 {
   "users": [
   ],
+  "bonusTables": [
+  ],
+  "shopTables": [
+  ],
+  "lobbyInventories": [
+  ],
   "inventories": [
   ],
   "surprisingBonuses": [
-  ],
-  "bonusTables": [
   ],
   "visitBonuses": [
   ],
