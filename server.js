@@ -57,7 +57,7 @@ router.render = (req, res) => {
             initInbox(id)
         }
         
-        data.inventory = db.get('inventories').find({ id: id }).value()
+        data.aquaInventory = db.get('aquaInventories').find({ id: id }).value()
         data.lobbyInventory = db.get('lobbyInventories').find({ id: id }).value()
         res.jsonp(data)
         
@@ -68,7 +68,7 @@ router.render = (req, res) => {
             .find({ id: id })
             .value()
         
-        user.inventory = db.get('inventories').find({ id: id }).value()
+        user.aquaInventory = db.get('aquaInventories').find({ id: id }).value()
         data.lobbyInventory = db.get('lobbyInventories').find({ id: id }).value()
         res.jsonp(user)
         
@@ -90,8 +90,7 @@ function initUser(id) {
             level: 1,
             xp: 0,
             coin: 10000000,
-            gem: 1000,
-            inventoryId: id
+            gem: 1000
         })
         .write()
 }
@@ -103,23 +102,44 @@ function initInventory(id) {
             {
                 id: 1, // lobby shop
                 values: [
-                    { id: 1, isNew: true, soldCount: 1, state: "Arizona", releaseTime: 1533195389, memorialTime: -1826582400 },
-                    { id: 2, isNew: false, soldCount: 2, state: "", releaseTime: 1533195388, memorialTime: 0 },
-                    { id: 3, isNew: false, soldCount: 3, state: "New Jersey", releaseTime: 1533195387, memorialTime: -5744563200},
-                    { id: 4, isNew: false, soldCount: 4, state: "", releaseTime: 1533195386, memorialTime: 0 },
-                    { id: 5, isNew: false, soldCount: 5, state: "Ohio", releaseTime: 1533195385, memorialTime: -5264956800 },
-                    { id: 6, isNew: false, soldCount: 1, state: "", releaseTime: 1533195384, memorialTime: 0 },
-                    { id: 7, isNew: false, soldCount: 1, state: "", releaseTime: 1533195383, memorialTime: 0 },
-                    { id: 8, isNew: false, soldCount: 1, state: "", releaseTime: 1533195382, memorialTime: 0 },
-                    { id: 9, isNew: false, soldCount: 1, state: "", releaseTime: 1533195381, memorialTime: 0 },
-                    { id: 10, isNew: false, soldCount: 1, state: "", releaseTime: 1533195380, memorialTime: 0 }
+                    { id: 1, isNew: true, soldCount: 1, state: "Arizona", releaseTime: 1533195389, memorialTime: -1826582400, priceToBuy: 10 },
+                    { id: 2, isNew: false, soldCount: 2, state: "", releaseTime: 1533195388, memorialTime: 0, priceToBuy: 20  },
+                    { id: 3, isNew: false, soldCount: 3, state: "New Jersey", releaseTime: 1533195387, memorialTime: -5744563200, priceToBuy: 30 },
+                    { id: 4, isNew: false, soldCount: 4, state: "", releaseTime: 1533195386, memorialTime: 0, priceToBuy: 40  },
+                    { id: 5, isNew: false, soldCount: 5, state: "Ohio", releaseTime: 1533195385, memorialTime: -5264956800, priceToBuy: 50  },
+                    { id: 6, isNew: false, soldCount: 1, state: "", releaseTime: 1533195384, memorialTime: 0, priceToBuy: 60  },
+                    { id: 7, isNew: false, soldCount: 1, state: "", releaseTime: 1533195383, memorialTime: 0, priceToBuy: 70  },
+                    { id: 8, isNew: false, soldCount: 1, state: "", releaseTime: 1533195382, memorialTime: 0, priceToBuy: 80  },
+                    { id: 9, isNew: false, soldCount: 1, state: "", releaseTime: 1533195381, memorialTime: 0, priceToBuy: 90  },
+                    { id: 10, isNew: false, soldCount: 1, state: "", releaseTime: 1533195380, memorialTime: 0, priceToBuy: 100  }
                 ]
             },
             {
                 id: 2, 
-                
+                values: [
+                    { id: 1, isNew: false, releaseTime: 1533195381, priceToBuy: 10 },
+                    { id: 2, isNew: false, releaseTime: 1533195382, priceToBuy: 20  },
+                    { id: 3, isNew: false, releaseTime: 1533195383, priceToBuy: 30  },
+                    { id: 4, isNew: false, releaseTime: 1533195384, priceToBuy: 40  },
+                    { id: 5, isNew: false, releaseTime: 1533195385, priceToBuy: 50  },
+                    { id: 6, isNew: false, releaseTime: 1533195386, priceToBuy: 60  },
+                    { id: 7, isNew: false, releaseTime: 1533195387, priceToBuy: 70  },
+                    { id: 8, isNew: false, releaseTime: 1533195388, priceToBuy: 80  },
+                    { id: 9, isNew: false, releaseTime: 1533195389, priceToBuy: 90  },
+                    { id: 10, isNew: false, releaseTime: 1533195390, priceToBuy: 100  },
+                    { id: 11, isNew: false, releaseTime: 1533195391, priceToBuy: 110  },
+                    { id: 12, isNew: false, releaseTime: 1533195392, priceToBuy: 120  },
+                    { id: 13, isNew: false, releaseTime: 1533195393, priceToBuy: 130  },
+                    { id: 14, isNew: false, releaseTime: 1533195394, priceToBuy: 140  },
+                    { id: 15, isNew: false, releaseTime: 1533195395, priceToBuy: 150  },
+                    { id: 16, isNew: false, releaseTime: 1533195396, priceToBuy: 160  },
+                    { id: 17, isNew: false, releaseTime: 1533195397, priceToBuy: 170  },
+                    { id: 18, isNew: false, releaseTime: 1533195398, priceToBuy: 180  },
+                    { id: 19, isNew: false, releaseTime: 1533195399, priceToBuy: 190  },
+                    { id: 20, isNew: false, releaseTime: 1533195400, priceToBuy: 200  },
+                ]
             })
-            .write();
+            .write()
     }
 
     db.get('lobbyInventories')
@@ -136,13 +156,14 @@ function initInventory(id) {
         })
         .write()
     
-    db.get('inventories')
+    db.get('aquaInventories')
         .push({
             id: id,
             aquaIndex: 0,
             aquas: [
             {
                 id: 1,
+                purchaseTime: 1533285485,
                 level: 1,
                 fishes: [
                 {
@@ -189,7 +210,9 @@ function initInventory(id) {
             }],
             fishes: [
 
-            ]
+            ],
+            userId: id,
+            shopTableId: 2
         })
         .write()
 }
