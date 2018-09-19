@@ -1,6 +1,6 @@
-// const fs = require('fs')
-// const content = fs.readFileSync('template.db.json')
-// fs.writeFileSync('db.json', content)
+const fs = require('fs')
+const content = fs.readFileSync('template.db.json')
+fs.writeFileSync('db.json', content)
 
 const jsonServer = require('json-server')
 
@@ -55,6 +55,8 @@ router.render = (req, res) => {
             initUser(id)
             initSurprisingBonus(id)
             initInbox(id)
+            initShowcase(id)
+            initRelation(id)
         }
         
         data.aquaInventory = db.get('aquaInventories').find({ id: id }).value()
@@ -217,6 +219,78 @@ function initInventory(id) {
         .write()
 }
 
+function initRelation(id) {
+    db.get('relations')
+        .push({
+            id: id,
+            userId: id,
+            friends: _.times(10, function(n) {
+                return {
+                    id: n + 1,
+                    name: faker.name.findName(),
+                    level: Math.floor(Math.random() * 10) + 1,
+                    pictureUrl: faker.internet.avatar(),
+                    hasSent: false
+                }
+            }),
+            others: _.times(10, function(n) {
+                return {
+                    id: n + 11,
+                    name: faker.name.findName(),
+                    level: Math.floor(Math.random() * 10) + 1,
+                    pictureUrl: faker.internet.avatar(),
+                    hasSent: false
+                }
+            })
+        })
+        .write()
+}
+
+function initShowcase(id) {
+    db.get('showcases')
+        .push({
+            id: id,
+            userId: id,
+            aquaInventories: _.times(5, function(n) {
+                return {
+                    id: n + 1,
+                    name: faker.name.findName(),
+                    level: Math.floor(Math.random() * 10) + 1,
+                    pictureUrl: faker.internet.avatar(),
+                    aquas: [
+                        {
+                            id: Math.floor(Math.random() * 20) + 1,
+                            level: Math.floor(Math.random() * 4) + 1,
+                            fishes: [
+                                {
+                                    id: Math.floor(Math.random() * 134) + 1,
+                                    count: 10,
+                                }
+                            ]
+                        }
+                    ],
+                    hasVisited: false
+                }
+            }),
+            fishInventories: _.times(5, function(n) {
+                return {
+                    id: 5 + 1,
+                    name: faker.name.findName(),
+                    level: Math.floor(Math.random() * 10) + 1,
+                    pictureUrl: faker.internet.avatar(),
+                    fishes: [
+                        {
+                            id: Math.floor(Math.random() * 134) + 1,
+                            count: 10
+                        }
+                    ],
+                    hasVisited: false
+                }
+            })
+        })
+        .write()
+}
+
 function initInbox(id) {
     db.get('inboxes')
         .push({
@@ -372,7 +446,7 @@ function initSurprisingBonus(id) {
         .push({
             id: id,
             timestamp: Math.floor(Date.now() / 1000),
-            friendsAquas: _.times(10, function(n) {
+            friendsInventories: _.times(10, function(n) {
                 const levelGenerated = Math.floor(Math.random() * 10) + 1;
                 return {
                     id: n + 1,
@@ -381,7 +455,7 @@ function initSurprisingBonus(id) {
                     pictureUrl: faker.internet.avatar(),
                     aquas: [
                         {
-                            id: 1,
+                            id: Math.floor(Math.random() * 20) + 1,
                             level: Math.floor(Math.random() * 4) + 1,
                             fishes: [
                                 {
