@@ -166,7 +166,7 @@ function initInventory(id) {
             {
                 id: 1,
                 purchaseTime: 1533285485,
-                level: 1,
+                level: 7,
                 fishes: [
                 {
                     id: 100,
@@ -201,18 +201,22 @@ function initInventory(id) {
             },
             {
                 id: 2,
-                level: 1,
+                level: 7,
                 fishes: [
                     {
                         id: 5,
-                        count: 1,
+                        count: 30,
                         added: 0
                     }
                 ]
             }],
-            fishes: [
-
-            ],
+            fishes: _.times(134, function(n) {
+                return {
+                    id: n + 1,
+                    count: 30,
+                    added: 0
+                }
+            }),
             userId: id,
             shopTableId: 2
         })
