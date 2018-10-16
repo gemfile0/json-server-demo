@@ -147,10 +147,10 @@ function initInventory(id) {
     db.get('lobbyInventories')
         .push({
             id: id,
-            lobbyIndex: 6,
+            lobbyIndex: 1,
             lobbies: [
             {
-                id: 6,
+                id: 1,
                 purchaseTime: 1533285485
             }],
             userId: id,
