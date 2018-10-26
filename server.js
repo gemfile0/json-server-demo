@@ -57,6 +57,7 @@ router.render = (req, res) => {
             initInbox(id)
             initShowcase(id)
             initRelation(id)
+            initShopping(id);
         }
         
         data.aquaInventory = db.get('aquaInventories').find({ id: id }).value()
@@ -103,21 +104,23 @@ function initInventory(id) {
             .push(
             {
                 id: 1, // lobby shop
+                name: "lobbyShop",
                 values: [
-                    { id: 1, isNew: true, soldCount: 1, state: "Arizona", releaseTime: 1533195389, memorialTime: -1826582400, priceToBuy: 10 },
-                    { id: 2, isNew: false, soldCount: 2, state: "", releaseTime: 1533195388, memorialTime: 0, priceToBuy: 20  },
-                    { id: 3, isNew: false, soldCount: 3, state: "New Jersey", releaseTime: 1533195387, memorialTime: -5744563200, priceToBuy: 30 },
-                    { id: 4, isNew: false, soldCount: 4, state: "", releaseTime: 1533195386, memorialTime: 0, priceToBuy: 40  },
-                    { id: 5, isNew: false, soldCount: 5, state: "Ohio", releaseTime: 1533195385, memorialTime: -5264956800, priceToBuy: 50  },
-                    { id: 6, isNew: false, soldCount: 1, state: "", releaseTime: 1533195384, memorialTime: 0, priceToBuy: 60  },
-                    { id: 7, isNew: false, soldCount: 1, state: "", releaseTime: 1533195383, memorialTime: 0, priceToBuy: 70  },
-                    { id: 8, isNew: false, soldCount: 1, state: "", releaseTime: 1533195382, memorialTime: 0, priceToBuy: 80  },
-                    { id: 9, isNew: false, soldCount: 1, state: "", releaseTime: 1533195381, memorialTime: 0, priceToBuy: 90  },
-                    { id: 10, isNew: false, soldCount: 1, state: "", releaseTime: 1533195380, memorialTime: 0, priceToBuy: 100  }
+                    { id: 1, isNew: true, soldCount: 1, releaseTime: 1533195389, priceToBuy: 10 },
+                    { id: 2, isNew: false, soldCount: 2, releaseTime: 1533195388, priceToBuy: 20  },
+                    { id: 3, isNew: false, soldCount: 3, releaseTime: 1533195387, priceToBuy: 30 },
+                    { id: 4, isNew: false, soldCount: 4, releaseTime: 1533195386, priceToBuy: 40  },
+                    { id: 5, isNew: false, soldCount: 5, releaseTime: 1533195385, priceToBuy: 50  },
+                    { id: 6, isNew: false, soldCount: 1, releaseTime: 1533195384, priceToBuy: 60  },
+                    { id: 7, isNew: false, soldCount: 1, releaseTime: 1571825094, priceToBuy: 70  },
+                    { id: 8, isNew: false, soldCount: 1, releaseTime: 1571825094, priceToBuy: 80  },
+                    { id: 9, isNew: false, soldCount: 1, releaseTime: 1571825094, priceToBuy: 90  },
+                    { id: 10, isNew: false, soldCount: 1, releaseTime: 1571825094, priceToBuy: 100  }
                 ]
             },
             {
-                id: 2, 
+                id: 2, // aqua shop
+                name: "aquaShop",
                 values: [
                     { id: 1, isNew: false, releaseTime: 1533195381, priceToBuy: 10 },
                     { id: 2, isNew: false, releaseTime: 1533195382, priceToBuy: 20  },
@@ -139,6 +142,33 @@ function initInventory(id) {
                     { id: 18, isNew: false, releaseTime: 1533195398, priceToBuy: 180  },
                     { id: 19, isNew: false, releaseTime: 1533195399, priceToBuy: 190  },
                     { id: 20, isNew: false, releaseTime: 1533195400, priceToBuy: 200  },
+                ]
+            },
+            {
+                id: 3,  // coin shop
+                name: "coinShop",
+                values: [
+                    { id: 1,  value: 2000000,    price: "1.99" },
+                    { id: 2,  value: 6000000,    price: "4.99" },
+                    { id: 3,  value: 13000000,   price: "9.99" },
+                    { id: 4,  value: 40000000,   price: "19.99" },
+                    { id: 5,  value: 120000000,  price: "39.99" },
+                    { id: 6,  value: 240000000,  price: "59.99" },
+                    { id: 7,  value: 500000000,  price: "99.99" },
+                    { id: 8,  value: 1200000000, price: "199.99" },
+                    { id: 9,  value: 2300000000, price: "299.99" },
+                    { id: 10, value: 5000000000, price: "499.99" },
+                ]
+            },
+            {
+                id: 4,  // gem shop
+                name: "gemShop",
+                values: [
+                    { id: 1, value: 100,  price: "0.99" },
+                    { id: 2, value: 240,  price: "1.99" },
+                    { id: 3, value: 700,  price: "4.99" },
+                    { id: 4, value: 1440, price: "9.99" },
+                    { id: 5, value: 3600, price: "19.99" },
                 ]
             })
             .write()
@@ -219,6 +249,16 @@ function initInventory(id) {
             }),
             userId: id,
             shopTableId: 2
+        })
+        .write()
+}
+
+function initShopping(id) {
+    db.get('shoppings')
+        .push({
+            id: id,
+            userId: id,
+            coupons: [1, 2, 3, 4]
         })
         .write()
 }
