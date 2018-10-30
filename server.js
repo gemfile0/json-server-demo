@@ -164,11 +164,27 @@ function initInventory(id) {
                 id: 4,  // gem shop
                 name: "gemShop",
                 values: [
-                    { id: 1, value: 100,  price: "0.99" },
-                    { id: 2, value: 240,  price: "1.99" },
-                    { id: 3, value: 700,  price: "4.99" },
-                    { id: 4, value: 1440, price: "9.99" },
-                    { id: 5, value: 3600, price: "19.99" },
+                    { id: 1, value: 100,  valueOrigin: 0,    price: "0.99" },
+                    { id: 2, value: 240,  valueOrigin: 200,  price: "1.99" },
+                    { id: 3, value: 700,  valueOrigin: 500,  price: "4.99" },
+                    { id: 4, value: 1440, valueOrigin: 900,  price: "8.99" },
+                    { id: 5, value: 3600, valueOrigin: 2000, price: "19.99" },
+                ]
+            },
+            {
+                id: 5, // Sale
+                name: "sale",
+                values: [
+                    { id: 1, value: 1800000,  valueOrigin: 600000,  price: "4.99",  xpBoost: 5 },
+                    { id: 2, value: 3300000,  valueOrigin: 1100000, price: "9.99",  xpBoost: 9 },
+                    { id: 3, value: 12000000, valueOrigin: 4000000, price: "19.99", xpBoost: 19 }
+                ]
+            },
+            {
+                id: 6,
+                name: "speicalDeal",
+                values: [
+                    { id: 1, value: 12000000, valueOrigin: 4000000, price: "19" }
                 ]
             })
             .write()
@@ -258,7 +274,12 @@ function initShopping(id) {
         .push({
             id: id,
             userId: id,
-            coupons: [1, 2, 3, 4]
+            coupons: [1, 2, 3, 4],
+            xpBoostExpiration: 0,
+            sales: [1, 2, 3],
+            saleExpiration: Math.floor(Date.now() / 1000) + 3600 * 72,
+            specialDeal: 1,
+            specialDealExpiration: Math.floor(Date.now() / 1000) + 3600 * 24
         })
         .write()
 }
