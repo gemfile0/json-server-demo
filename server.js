@@ -186,6 +186,17 @@ function initInventory(id) {
                 values: [
                     { id: 1, value: 12000000, valueOrigin: 4000000, price: "19" }
                 ]
+            },
+            {
+                id: 7,
+                name: "coupon",
+                values: [
+                    { id: 0, value: 1.0 },
+                    { id: 1, value: 2.0 },
+                    { id: 2, value: 1.75 },
+                    { id: 3, value: 1.5 },
+                    { id: 4, value: 1.25 },
+                ]
             })
             .write()
     }
@@ -274,12 +285,25 @@ function initShopping(id) {
         .push({
             id: id,
             userId: id,
-            coupons: [1, 2, 3, 4],
+            coupons: [
+                { id: 1, type: 1 }, 
+                { id: 2, type: 2 }, 
+                { id: 3, type: 3 }, 
+                { id: 4, type: 4 }, 
+                { id: 5, type: 1 }, 
+                { id: 6, type: 1 }
+            ],
             xpBoostExpiration: 0,
-            sales: [1, 2, 3],
-            saleExpiration: Math.floor(Date.now() / 1000) + 3600 * 72,
-            specialDeal: 1,
-            specialDealExpiration: Math.floor(Date.now() / 1000) + 3600 * 24
+            sale: {
+                id: 1,
+                types: [1, 2, 3],
+                expiration: Math.floor(Date.now() / 1000) + 3600 * 72
+            },
+            specialDeal: { 
+                id: 1, 
+                type: 1, 
+                expiration: Math.floor(Date.now() / 1000) + 3600 * 24 
+            }
         })
         .write()
 }
