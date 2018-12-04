@@ -58,6 +58,7 @@ router.render = (req, res) => {
             initShowcase(id)
             initRelation(id)
             initShopping(id);
+            initTodaysEvent(id);
         }
         
         data.aquaInventory = db.get('aquaInventories').find({ id: id }).value()
@@ -276,6 +277,44 @@ function initInventory(id) {
             }),
             userId: id,
             shopTableId: 2
+        })
+        .write()
+}
+
+function initTodaysEvent(id) {
+    db.get('todaysEvents')
+        .push({
+            id: id,
+            userId: id,
+            achievedCount: 1,
+            nextEvent: {
+                spins: 0,
+                spinsToOpen: 0,
+                priceToOpen: 10,
+            },
+            state: 0,
+            missions: [
+                {
+                    id: 1, 
+                    timeAssigned: Math.floor(Date.now() / 1000),
+                    timeBegin: 0,
+                    coins: 0,
+                    retry: {
+                        count: 1,
+                        price: 10
+                    },
+                    goal: {
+                        duration: 30,
+                        type: 0,
+                        value: 10000
+                    },
+                    reward: {
+                        fishId: Math.floor(Math.random() * 134) + 1,
+                        type: 0,
+                        value: 50000
+                    }
+                }
+            ]
         })
         .write()
 }
