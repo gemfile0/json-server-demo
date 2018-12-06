@@ -94,7 +94,7 @@ function initUser(id) {
             level: 1,
             xp: 0,
             coin: 10000000,
-            gem: 1000
+            gem: 10
         })
         .write()
 }
@@ -288,6 +288,7 @@ function initTodaysEvent(id) {
             userId: id,
             achievedCount: 1,
             nextEvent: {
+                isOpened: false,
                 spins: 0,
                 spinsToOpen: 0,
                 priceToOpen: 10,
