@@ -94,7 +94,7 @@ function initUser(id) {
             level: 1,
             xp: 0,
             coin: 10000000,
-            gem: 10
+            gem: 100
         })
         .write()
 }
@@ -256,17 +256,6 @@ function initInventory(id) {
                     count: 1,
                     added: 0
                 }]
-            },
-            {
-                id: 2,
-                level: 7,
-                fishes: [
-                    {
-                        id: 5,
-                        count: 30,
-                        added: 0
-                    }
-                ]
             }],
             fishes: _.times(134, function(n) {
                 return {
