@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "build": "node build.js",
     "start": "node server.js"
   },
   "dependencies": {
@@ -13,7 +14,8 @@
   },
   "now": {
     "alias": "json-server-demo",
-    "public": true
+    "public": true,
+    "regions": ["sfo1"]
   },
   "devDependencies": {},
   "author": "",
