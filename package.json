@@ -4,18 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "node build.js",
+    "now-build": "node build.js",
     "start": "node server.js"
   },
   "dependencies": {
     "faker": "^4.1.0",
     "lodash": "^4.17.10",
     "json-server": "^0.12.1"
-  },
-  "now": {
-    "alias": "json-server-demo",
-    "public": true,
-    "regions": ["sfo1"]
   },
   "devDependencies": {},
   "author": "",

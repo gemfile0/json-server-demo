@@ -1,3 +1,10 @@
 const fs = require('fs')
-const content = fs.readFileSync('template.db.json')
-fs.writeFileSync('db.json', content)
+const path = require('path')
+
+const content = fs.readFileSync(
+    path.resolve(__dirname, './tmp/template.db.json')
+)
+fs.writeFileSync(
+    path.resolve(__dirname, './tmp/db.json'), 
+    content
+)

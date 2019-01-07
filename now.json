@@ -1,0 +1,14 @@
+{
+    "name": "json-server-demo",
+    "version": 2,
+    "builds": [
+        { "src": "tmp/*", "use": "@now/static" },
+        { "src": "build.js", "use": "@now/static" },
+        { "src": "package.json", "use": "@now/static-build" },
+        { "src": "server.js", "use": "@now/node-server" }
+    ],
+    "routes": [{ "src": "/(.*)", "dest": "/server.js" }],
+    "alias": "json-server-demo",
+    "regions": ["sfo1"],
+    "public": true
+}

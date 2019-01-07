@@ -1,7 +1,9 @@
 const jsonServer = require('json-server')
 
+const path = require('path')
+
 const server = jsonServer.create()
-const router = jsonServer.router('db.json')
+const router = jsonServer.router(path.resolve(__dirname, './tmp/db.json'))
 const middlewares = jsonServer.defaults()
 
 const db = router.db;
@@ -78,9 +80,7 @@ router.render = (req, res) => {
 }
 
 server.use(router)
-server.listen(process.env.PORT || 3000, () => {
-  console.log('JSON Server is running')
-})
+server.listen()
 
 function initUser(id) {
     db.get('users')
