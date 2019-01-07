@@ -1,0 +1,6 @@
+{
+    "version": 1,
+    "public": true,
+    "alias": "json-server-demo",
+    "regions": ["sfo1"]
+}
