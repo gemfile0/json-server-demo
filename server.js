@@ -205,7 +205,7 @@ function initInventory(id) {
     db.get('lobbyInventories')
         .push({
             id: id,
-            lobbyIndex: 1,
+            lobbyIndex: 0,
             lobbies: [
             {
                 id: 1,
