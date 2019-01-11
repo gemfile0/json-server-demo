@@ -73,7 +73,7 @@ router.render = (req, res) => {
             .value()
         
         user.aquaInventory = db.get('aquaInventories').find({ id: id }).value()
-        data.lobbyInventory = db.get('lobbyInventories').find({ id: id }).value()
+        user.lobbyInventory = db.get('lobbyInventories').find({ id: id }).value()
         res.jsonp(user)
         
     } else {
